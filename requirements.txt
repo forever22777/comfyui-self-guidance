@@ -1,0 +1,2 @@
+diffusers==0.26.3
+fuzzywuzzy==0.18.0
