@@ -330,8 +330,8 @@ class SelfGuidanceStableDiffusionPipeline(DiffusionPipeline, FromSingleFileMixin
         fix_token_indices: Union[List[List[List[int]]],
                                  List[List[int]]] = None,
         latent_image: Union[List[torch.FloatTensor],] = None,
-        height: Optional[int] = 1024,
-        width: Optional[int] = 1024,
+        height: int = 1024,
+        width: int = 1024,
         num_inference_steps: int = 128,
         denoising_end: Optional[float] = None,
         guidance_scale: float = 7.5,
@@ -346,9 +346,7 @@ class SelfGuidanceStableDiffusionPipeline(DiffusionPipeline, FromSingleFileMixin
         loss_scale: int = 1,
         obj_scale: Optional[float] = None,
         centers: Union[List[List[List[int]]], List[List[int]]] = None,
-        original_size: Optional[Tuple[int, int]] = None,
         crops_coords_top_left: Tuple[int, int] = (0, 0),
-        target_size: Optional[Tuple[int, int]] = None,
         size_omega: float = 3.0,
         shape_omega: float = 4.,
         app_omega: float = 0.2,
@@ -358,13 +356,10 @@ class SelfGuidanceStableDiffusionPipeline(DiffusionPipeline, FromSingleFileMixin
 
     ):
 
-        height = height or self.unet.config.sample_size * 8
-        width = width or self.unet.config.sample_size * 8
-
         self.centers = centers
         self.obj_scale = obj_scale
-        original_size = original_size or (height, width)
-        target_size = target_size or (height, width)
+        original_size = (height, width)
+        target_size = (height, width)
 
         batch_size = 1
         device = self.device
@@ -450,7 +445,6 @@ class SelfGuidanceStableDiffusionPipeline(DiffusionPipeline, FromSingleFileMixin
         comfy_pbar = comfy.utils.ProgressBar(num_inference_steps)
         with self.progress_bar(total=num_inference_steps) as progress_bar:
             for i, t in enumerate(timesteps):
-
                 last_timestep = torch.tensor([t])
                 latents_real = self.prepare_latents(
                     latent_image,
