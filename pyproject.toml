@@ -1,0 +1,15 @@
+[project]
+name = "comfyui-self-guidance"
+description = ""
+version = "1.0.0"
+license = {file = "LICENSE"}
+dependencies = ["diffusers==0.26.3", "fuzzywuzzy==0.18.0"]
+
+[project.urls]
+Repository = "https://github.com/forever22777/comfyui-self-guidance"
+#  Used by Comfy Registry https://comfyregistry.org
+
+[tool.comfy]
+PublisherId = "forever22777"
+DisplayName = "comfyui-self-guidance"
+Icon = ""
