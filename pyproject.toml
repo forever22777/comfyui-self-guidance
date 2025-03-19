@@ -1,7 +1,7 @@
 [project]
 name = "comfyui-self-guidance"
 description = ""
-version = "1.0.0"
+version = "1.0.1"
 license = {file = "LICENSE"}
 dependencies = ["diffusers==0.26.3", "fuzzywuzzy==0.18.0"]
 
